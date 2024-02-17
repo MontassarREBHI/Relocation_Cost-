@@ -18,6 +18,34 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* App.css */
+
+.footer {
+  color: #090808;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.credit-rights p {
+  margin: 0;
+}
+
+.social-media-links a {
+  color: #2f2222;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.social-media-links a:last-child {
+  margin-right: 0;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

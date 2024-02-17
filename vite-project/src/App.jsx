@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 import "./App.css";
 
@@ -22,18 +23,22 @@ function App() {
   let calculate = () => {
     if (price.Oprice < price.A1Price)
       setRefund((prev) => {
+        let priceOInlcudingBSB =
+          parseFloat(price.Oprice) + parseFloat(price.OBSB);
         return {
           ...prev,
           Orefund: price.A1Price - price.Oprice,
-          Oinvoice: price.A1Price - (price.Oprice + price.OBSB),
+          Oinvoice: price.A1Price - priceOInlcudingBSB,
         };
       });
     if (price.A1Price < price.A2Price)
       setRefund((prev) => {
+        let priceA1InlcudingBSB =
+          parseFloat(price.A1Price) + parseFloat(price.A1BSB);
         return {
           ...prev,
           A1refund: price.A2Price - price.A1Price,
-          A1invoice: price.A1Price - (price.A2Price + price.A2BSB),
+          A1invoice: price.A2Price - priceA1InlcudingBSB,
         };
       });
     setShow(true);
@@ -148,6 +153,24 @@ function App() {
         <hr />
         <br />
       </div>
+      <footer className="footer">
+        <div className="footer-content">
+          <div className="credit-rights">
+            <p>&copy; 2024 TUN2 SENIORS. All rights reserved.</p>
+          </div>
+          <div className="social-media-links">
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-twitter"></i>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
