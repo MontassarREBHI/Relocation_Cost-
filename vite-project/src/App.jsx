@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
 
@@ -12,144 +13,157 @@ function App() {
     A2Price: 0,
     A2BSB: 0,
   });
-  const [show, setShow] = useState(false);
-
   const [refund, setRefund] = useState({
     Orefund: 0,
     Oinvoice: 0,
     A1refund: 0,
     A1invoice: 0,
   });
-  let calculate = () => {
+  const [show, setShow] = useState(false);
+
+  const calculate = () => {
     if (price.Oprice < price.A1Price)
       setRefund((prev) => {
-        let priceOInlcudingBSB =
+        let priceOIncludingBSB =
           parseFloat(price.Oprice) + parseFloat(price.OBSB);
         return {
           ...prev,
           Orefund: price.A1Price - price.Oprice,
-          Oinvoice: price.A1Price - priceOInlcudingBSB,
+          Oinvoice: price.A1Price - priceOIncludingBSB,
         };
       });
     if (price.A1Price < price.A2Price)
       setRefund((prev) => {
-        let priceA1InlcudingBSB =
+        let priceA1IncludingBSB =
           parseFloat(price.A1Price) + parseFloat(price.A1BSB);
         return {
           ...prev,
           A1refund: price.A2Price - price.A1Price,
-          A1invoice: price.A2Price - priceA1InlcudingBSB,
+          A1invoice: price.A2Price - priceA1IncludingBSB,
         };
       });
     setShow(true);
   };
+
   return (
     <>
       <h1>Relocation Costs</h1>
       <p>Use this tool for easy refund and invoice calculations</p>
-      <form action="">
-        <label>
-          Original Cost:
-          <input
-            type="number"
-            name="OriginCost"
-            value={price.Oprice}
-            onChange={(e) =>
-              setPrice((prev) => {
-                return { ...prev, Oprice: e.target.value };
-              })
-            }
-          />
-        </label>
-        <label>
-          BSB on Original:
-          <input
-            type="number"
-            name="OriginBSB"
-            value={price.OBSB}
-            onChange={(e) =>
-              setPrice((prev) => {
-                return { ...prev, OBSB: e.target.value };
-              })
-            }
-          />
-        </label>
-        <br />
-        <br />
-        <label>
-          Alt1 Cost:
-          <input
-            type="number"
-            name="Alt1Cost"
-            value={price.A1Price}
-            onChange={(e) =>
-              setPrice((prev) => {
-                return { ...prev, A1Price: e.target.value };
-              })
-            }
-          />
-        </label>
-        <label>
-          BSB on Alt1:
-          <input
-            type="number"
-            name="Alt1BSB"
-            value={price.A1BSB}
-            onChange={(e) =>
-              setPrice((prev) => {
-                return { ...prev, A1BSB: e.target.value };
-              })
-            }
-          />
-        </label>
-        <br />
-        <br />
-        <label>
-          Alt2 Cost:
-          <input
-            type="number"
-            name="Alt2Cost"
-            value={price.A2Price}
-            onChange={(e) =>
-              setPrice((prev) => {
-                return { ...prev, A2Price: e.target.value };
-              })
-            }
-          />
-        </label>
-        <label>
-          BSB on Alt2:
-          <input
-            type="number"
-            name="Alt2BSB"
-            value={price.A2BSB}
-            onChange={(e) =>
-              setPrice((prev) => {
-                return { ...prev, A2BSB: e.target.value };
-              })
-            }
-          />
-        </label>
-        <br />
-        <br />
-        <button type="button" onClick={() => calculate()}>
+      <form>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="originCost">Original Cost:</label>
+              <input
+                type="number"
+                className="form-control"
+                id="originCost"
+                value={price.Oprice}
+                onChange={(e) =>
+                  setPrice((prev) => ({ ...prev, Oprice: e.target.value }))
+                }
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="originBSB">BSB on Original:</label>
+              <input
+                type="number"
+                className="form-control"
+                id="originBSB"
+                value={price.OBSB}
+                onChange={(e) =>
+                  setPrice((prev) => ({ ...prev, OBSB: e.target.value }))
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="alt1Cost">Alt1 Cost:</label>
+              <input
+                type="number"
+                className="form-control"
+                id="alt1Cost"
+                value={price.A1Price}
+                onChange={(e) =>
+                  setPrice((prev) => ({ ...prev, A1Price: e.target.value }))
+                }
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="alt1BSB">BSB on Alt1:</label>
+              <input
+                type="number"
+                className="form-control"
+                id="alt1BSB"
+                value={price.A1BSB}
+                onChange={(e) =>
+                  setPrice((prev) => ({ ...prev, A1BSB: e.target.value }))
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="alt2Cost">Alt2 Cost:</label>
+              <input
+                type="number"
+                className="form-control"
+                id="alt2Cost"
+                value={price.A2Price}
+                onChange={(e) =>
+                  setPrice((prev) => ({ ...prev, A2Price: e.target.value }))
+                }
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="alt2BSB">BSB on Alt2:</label>
+              <input
+                type="number"
+                className="form-control"
+                id="alt2BSB"
+                value={price.A2BSB}
+                onChange={(e) =>
+                  setPrice((prev) => ({ ...prev, A2BSB: e.target.value }))
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          className="btn btn-primary"
+          style={{ marginTop: "10px", marginBottom: "8px" }}
+          onClick={calculate}
+        >
           Calculate
         </button>
       </form>
 
       <div>
         <p>
-          <strong>Refund</strong> to G on <strong>Original</strong> P :{" "}
+          <strong>Refund</strong> to G on <strong>Original</strong> RES :{" "}
           <strong>{refund.Orefund}</strong> and <strong>invoice</strong> to{" "}
           <strong>Original</strong> P : <strong>{refund.Oinvoice}</strong>
         </p>
         <hr />
         <br />
         <p>
-          <strong>Refund</strong> to G on <strong>Alt 1</strong> :{" "}
+          <strong>Refund</strong> to G on <strong>Alt 1</strong> RES :{" "}
           <strong>{refund.A1refund}</strong> and <strong>invoice</strong> to{" "}
           <strong>Alt 1</strong> P : <strong>{refund.A1invoice}</strong>
         </p>
+
         <hr />
         <br />
       </div>
